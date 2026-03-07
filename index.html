@@ -19,11 +19,11 @@
         }
 
         :root {
-            --red: #C41E3A;
+            --red: #FF5800;
             --blue: #0051A2;
             --yellow: #FFD500;
             --green: #009B48;
-            --orange: #FF5800;
+            --orange: #C41E3A;
             --bg: #08080f;
             --bg2: #0e0e18;
             --text: #e8e8f2;
@@ -164,6 +164,30 @@
                 transform: rotateY(360deg) rotateX(15deg);
             }
         }
+
+        /* ── MOBILE NAV TOGGLE ── */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text);
+            transition: transform .3s, opacity .3s;
+        }
+
+        .nav-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         .nav-links {
             display: flex;
@@ -366,7 +390,7 @@
         .cube-aura {
             position: absolute;
             inset: -80px;
-            background: radial-gradient(circle at 50% 50%, rgba(196, 30, 58, .18) 0%, rgba(0, 81, 162, .12) 40%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 88, 0, .18) 0%, rgba(196, 30, 58, .12) 40%, transparent 70%);
             animation: aura 4s ease-in-out infinite;
             pointer-events: none;
             border-radius: 50%;
@@ -388,8 +412,8 @@
 
         /* ── 3D RUBIK'S CUBE ── */
         .cube-viewport {
-            width: 300px;
-            height: 300px;
+            width: 240px;
+            height: 240px;
             perspective: 960px;
             perspective-origin: 50% 50%;
             display: flex;
@@ -413,16 +437,16 @@
         /* Each small cubie */
         .cubie {
             position: absolute;
-            width: 82px;
-            height: 82px;
-            margin: -41px 0 0 -41px;
+            width: 66px;
+            height: 66px;
+            margin: -33px 0 0 -33px;
             transform-style: preserve-3d;
         }
 
         .cubie-face {
             position: absolute;
-            width: 82px;
-            height: 82px;
+            width: 66px;
+            height: 66px;
             border-radius: 9px;
             border: 3px solid #050505;
             backface-visibility: visible;
@@ -450,13 +474,13 @@
         }
 
         .fc-red {
-            background: rgba(196, 30, 58, 1);
-            box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .35), 0 0 12px rgba(196, 30, 58, .55);
+            background: var(--red);
+            box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .35), 0 0 12px var(--red);
         }
 
         .fc-orange {
-            background: rgba(255, 88, 0, 1);
-            box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .35), 0 0 12px rgba(255, 88, 0, .55);
+            background: var(--orange);
+            box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .35), 0 0 12px var(--orange);
         }
 
         .fc-blue {
@@ -491,7 +515,7 @@
         /* Cube UI */
         .cube-ui {
             text-align: center;
-            margin-top: 18px;
+            margin-top: 80px;
         }
 
         .cube-status {
@@ -1215,6 +1239,36 @@
                 gap: 20px
             }
         }
+
+        @media(max-width:860px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                background: var(--bg2);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+                transition: right .4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                padding: 40px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -1231,7 +1285,12 @@
             <div class="logo-cube"></div>
             Portfolio
         </a>
-        <ul class="nav-links">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -1343,16 +1402,16 @@
             <div class="skill-card sk-html up">
                 <div class="sk-scene">
                     <div class="sk-cube" style="animation-delay:0s">
-                        <div class="sf f" style="background:#FF5800">&#127760;</div>
-                        <div class="sf b" style="background:#CC4400"></div>
-                        <div class="sf l" style="background:#e05000"></div>
-                        <div class="sf r" style="background:#cc4400"></div>
-                        <div class="sf t" style="background:#ff6a1a"></div>
-                        <div class="sf d" style="background:#993300"></div>
+                        <div class="sf f" style="background:var(--red)">&#127760;</div>
+                        <div class="sf b" style="background:var(--red)"></div>
+                        <div class="sf l" style="background:var(--red)"></div>
+                        <div class="sf r" style="background:var(--red)"></div>
+                        <div class="sf t" style="background:var(--red)"></div>
+                        <div class="sf d" style="background:var(--red)"></div>
                     </div>
                 </div>
-                <div class="sk-name">HTML5</div>
-                <div class="sk-desc">Semantic markup &amp; accessibility</div>
+                <div class="sk-name">Full Stack</div>
+                <div class="sk-desc">Frontend, backend &amp scalable web applications</div>
                 <div class="bar-wrap">
                     <div class="bar" data-w="100"></div>
                 </div>
@@ -1369,8 +1428,8 @@
                         <div class="sf d" style="background:#002d5c"></div>
                     </div>
                 </div>
-                <div class="sk-name">CSS3</div>
-                <div class="sk-desc">Animations, layouts &amp; design systems</div>
+                <div class="sk-name">AI/ML</div>
+                <div class="sk-desc">Intelligent systems, models &amp; data-driven solutions</div>
                 <div class="bar-wrap">
                     <div class="bar" data-w="100"></div>
                 </div>
@@ -1386,8 +1445,8 @@
                         <div class="sf d" style="background:#997e00"></div>
                     </div>
                 </div>
-                <div class="sk-name">JavaScript</div>
-                <div class="sk-desc">Interactive &amp; dynamic experiences</div>
+                <div class="sk-name">Cloud</div>
+                <div class="sk-desc">Deployment, infrastructure &amp; scalable services</div>
                 <div class="bar-wrap">
                     <div class="bar" data-w="100"></div>
                 </div>
@@ -1430,100 +1489,42 @@
             <div class="proj p1 up">
                 <div class="proj-inner">
                     <div class="proj-f">
-                        <div class="proj-num">01 / 06</div>
-                        <div class="proj-ico">&#127918;</div>
-                        <div class="proj-title">3D Cube Game Engine</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--yellow);border-color:var(--yellow)">JS</span><span class="ptag"
-                                style="color:var(--orange);border-color:var(--orange)">HTML5</span></div>
+                        <div class="proj-num">01 / 03</div>
+                        <div class="proj-ico" style="background-image: url('/C:/Users/Asus/.gemini/antigravity/brain/27dfebe1-757e-4d73-b059-d88e2f203946/potli_budget_app_1772912367902.png'); background-size: cover; border-radius: 12px; height: 120px; width: 100%; margin-bottom: 12px;"></div>
+                        <div class="proj-title">Potli</div>
+                        <div class="proj-tags"><span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">Vercel</span><span class="ptag" style="color:var(--orange);border-color:var(--orange)">Budgeting</span></div>
                     </div>
                     <div class="proj-bk">
-                        <div class="proj-desc">A 3D puzzle game engine built from scratch using vanilla JS and HTML5
-                            Canvas, featuring custom physics and smooth animations.</div><a href="#"
-                            class="proj-link">View Project &rarr;</a>
+                        <div class="proj-desc">Budget management website based on the Potli system. Tracking finances with Indian context.</div>
+                        <a href="https://potlis.vercel.app" class="proj-link" target="_blank">View Live &rarr;</a>
                     </div>
                 </div>
             </div>
             <div class="proj p2 up">
                 <div class="proj-inner">
                     <div class="proj-f">
-                        <div class="proj-num">02 / 06</div>
-                        <div class="proj-ico">&#129302;</div>
-                        <div class="proj-title">Python Automation Bot</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--green);border-color:var(--green)">Python</span></div>
+                        <div class="proj-num">02 / 03</div>
+                        <div class="proj-ico" style="background-image: url('/C:/Users/Asus/.gemini/antigravity/brain/27dfebe1-757e-4d73-b059-d88e2f203946/shopsyra_ai_shopping_1772912386811.png'); background-size: cover; border-radius: 12px; height: 120px; width: 100%; margin-bottom: 12px;"></div>
+                        <div class="proj-title">Shopsyra</div>
+                        <div class="proj-tags"><span class="ptag" style="color:var(--blue);border-color:var(--blue)">AI</span><span class="ptag" style="color:var(--green);border-color:var(--green)">Shopping</span></div>
                     </div>
                     <div class="proj-bk">
-                        <div class="proj-desc">An intelligent automation bot handling web scraping, data processing, and
-                            repetitive workflows with 95%+ accuracy.</div><a href="#" class="proj-link">View Project
-                            &rarr;</a>
+                        <div class="proj-desc">AI-powered chatbot for in-store product discovery and recommendations.</div>
+                        <a href="https://shopsyra.vercel.app" class="proj-link" target="_blank">View Live &rarr;</a>
                     </div>
                 </div>
             </div>
             <div class="proj p3 up">
                 <div class="proj-inner">
                     <div class="proj-f">
-                        <div class="proj-num">03 / 06</div>
-                        <div class="proj-ico">&#127760;</div>
-                        <div class="proj-title">Interactive Dashboard</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--yellow);border-color:var(--yellow)">JS</span><span class="ptag"
-                                style="color:var(--blue);border-color:var(--blue)">CSS</span></div>
+                        <div class="proj-num">03 / 03</div>
+                        <div class="proj-ico" style="background-image: url('/C:/Users/Asus/.gemini/antigravity/brain/27dfebe1-757e-4d73-b059-d88e2f203946/sorting_visualizer_tool_1772912403281.png'); background-size: cover; border-radius: 12px; height: 120px; width: 100%; margin-bottom: 12px;"></div>
+                        <div class="proj-title">Sorting Visualizer</div>
+                        <div class="proj-tags"><span class="ptag" style="color:var(--red);border-color:var(--red)">Algorithms</span><span class="ptag" style="color:var(--yellow);border-color:var(--yellow)">Front-End</span></div>
                     </div>
                     <div class="proj-bk">
-                        <div class="proj-desc">Real-time data dashboard with custom chart components, live filtering,
-                            and fully responsive layout.</div><a href="#" class="proj-link">View Project &rarr;</a>
-                    </div>
-                </div>
-            </div>
-            <div class="proj p4 up">
-                <div class="proj-inner">
-                    <div class="proj-f">
-                        <div class="proj-num">04 / 06</div>
-                        <div class="proj-ico">&#128202;</div>
-                        <div class="proj-title">Data Analysis Tool</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--green);border-color:var(--green)">Python</span><span class="ptag"
-                                style="color:var(--orange);border-color:var(--orange)">HTML</span></div>
-                    </div>
-                    <div class="proj-bk">
-                        <div class="proj-desc">Python-powered data analysis with a web-based visualization layer.
-                            Processes and renders large datasets in real time.</div><a href="#" class="proj-link">View
-                            Project &rarr;</a>
-                    </div>
-                </div>
-            </div>
-            <div class="proj p5 up">
-                <div class="proj-inner">
-                    <div class="proj-f">
-                        <div class="proj-num">05 / 06</div>
-                        <div class="proj-ico">&#10024;</div>
-                        <div class="proj-title">CSS Animation Library</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--blue);border-color:var(--blue)">CSS</span><span class="ptag"
-                                style="color:var(--yellow);border-color:var(--yellow)">JS</span></div>
-                    </div>
-                    <div class="proj-bk">
-                        <div class="proj-desc">Open-source animation library with 50+ customizable keyframe animations,
-                            zero dependencies, tiny footprint.</div><a href="#" class="proj-link">View Project
-                            &rarr;</a>
-                    </div>
-                </div>
-            </div>
-            <div class="proj p6 up">
-                <div class="proj-inner">
-                    <div class="proj-f">
-                        <div class="proj-num">06 / 06</div>
-                        <div class="proj-ico">&#128274;</div>
-                        <div class="proj-title">Secure Password Manager</div>
-                        <div class="proj-tags"><span class="ptag"
-                                style="color:var(--green);border-color:var(--green)">Python</span><span class="ptag"
-                                style="color:var(--blue);border-color:var(--blue)">CSS</span></div>
-                    </div>
-                    <div class="proj-bk">
-                        <div class="proj-desc">Encrypted password manager with a clean GUI built in Python. AES-256
-                            encryption, master password, and auto-fill support.</div><a href="#" class="proj-link">View
-                            Project &rarr;</a>
+                        <div class="proj-desc">Real-time algorithm metrics: comparisons, swaps, and execution time.</div>
+                        <a href="https://brahmpreett.github.io/Sorting_Visualizer/" class="proj-link" target="_blank">View Demo &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -1582,6 +1583,26 @@
         })();
 
         // ══════════════════════════════════════════════════
+        //  MOBILE NAV TOGGLE
+        // ══════════════════════════════════════════════════
+        const navToggle = document.getElementById('navToggle');
+        const navLinksEl = document.getElementById('navLinks');
+        if (navToggle && navLinksEl) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navLinksEl.classList.toggle('active');
+            });
+
+            // Close menu on link click
+            navLinksEl.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navLinksEl.classList.remove('active');
+                });
+            });
+        }
+
+        // ══════════════════════════════════════════════════
         //  SCROLL PROGRESS
         // ══════════════════════════════════════════════════
         const prog = document.getElementById('progress');
@@ -1594,7 +1615,7 @@
         // ══════════════════════════════════════════════════
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        const PCOLS = ['#C41E3A', '#0051A2', '#FFD500', '#009B48', '#FF5800'];
+        const PCOLS = ['#FF5800', '#0051A2', '#FFD500', '#009B48', '#C41E3A'];
         function resizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -1629,10 +1650,10 @@
         // ══════════════════════════════════════════════════
         //  3D RUBIK'S CUBE — FULL 27-CUBIE SYSTEM
         // ══════════════════════════════════════════════════
-        const CUBIE_PX = 83;
+        const CUBIE_PX = 66;
         const GAP_PX = 0;
-        const HALF_PX = 41.5;
-        const STEP_PX = 83;
+        const HALF_PX = 33;
+        const STEP_PX = 66;
 
         const FC = {
             front: { bg: '#009B48', cls: 'fc-green' },
@@ -1703,10 +1724,10 @@
             m.m41 = Math.round(m.m41 / STEP_PX) * STEP_PX;
             m.m42 = Math.round(m.m42 / STEP_PX) * STEP_PX;
             m.m43 = Math.round(m.m43 / STEP_PX) * STEP_PX;
-            
+
             // Round rotation components (top-left 3x3) to nearest integer (-1, 0, or 1)
             // This ensures orthogonality and prevents skewing/distortion
-            ['m11','m12','m13','m21','m22','m23','m31','m32','m33'].forEach(f => {
+            ['m11', 'm12', 'm13', 'm21', 'm22', 'm23', 'm31', 'm32', 'm33'].forEach(f => {
                 if (Math.abs(m[f]) < 0.1) m[f] = 0;
                 else m[f] = Math.sign(m[f]);
             });
@@ -1732,37 +1753,37 @@
                 layer.forEach(c => pivot.appendChild(c.el));
 
                 pivot.getBoundingClientRect(); // force layout
-                
+
                 // Animation setup
                 if (ms > 0) {
                     pivot.style.transition = `transform ${ms}ms cubic-bezier(0.34, 1.25, 0.64, 1)`;
                 }
-                pivot.style.transform = axis === 'y' ? `rotateY(${angle}deg)` : 
-                                       axis === 'x' ? `rotateX(${angle}deg)` : 
-                                       `rotateZ(${angle}deg)`;
+                pivot.style.transform = axis === 'y' ? `rotateY(${angle}deg)` :
+                    axis === 'x' ? `rotateX(${angle}deg)` :
+                        `rotateZ(${angle}deg)`;
 
                 setTimeout(() => {
-                    const rotStr = axis === 'y' ? `rotateY(${angle}deg)` : 
-                                   axis === 'x' ? `rotateX(${angle}deg)` : 
-                                   `rotateZ(${angle}deg)`;
+                    const rotStr = axis === 'y' ? `rotateY(${angle}deg)` :
+                        axis === 'x' ? `rotateX(${angle}deg)` :
+                            `rotateZ(${angle}deg)`;
                     const rotM = new DOMMatrix(rotStr);
-                    
+
                     layer.forEach(c => {
                         // Math: New World Matrix = Rotation * Old World Matrix
                         c.m = rotM.multiply(c.m);
-                        
+
                         // CRITICAL: Snap the matrix to clean integers to prevent drift/skew
                         snap(c.m);
-                        
+
                         // Re-parent back to the main scene
                         cubeScene.appendChild(c.el);
-                        
+
                         // Set the new transformation instantly
                         c.el.style.transition = 'none';
                         c.el.style.transform = c.m.toString();
                         void c.el.offsetHeight; // force reflow
                     });
-                    
+
                     pivot.remove();
                     resolve();
                 }, ms + 40); // extra padding to ensure animation is 100% done
@@ -1838,11 +1859,11 @@
         async function startScrambleSolve(n = 10, ms = 360) {
             const cubeWrapper = document.getElementById("cubeWrapper");
             if (!cubeWrapper) return;
-            
+
             cubeWrapper.style.opacity = 0;
-            await scramble(n, 0); 
+            await scramble(n, 0);
             cubeWrapper.style.opacity = 1;
-            await sleep(400); 
+            await sleep(400);
             await solve(ms);
         }
 
@@ -1852,6 +1873,7 @@
 
         // Buttons
         document.getElementById('btnScramble').addEventListener('click', () => {
+            if (history.length > 0) return; // Only scramble if currently solved or at start
             manualMode = true; clearTimeout(manualTimer);
             manualTimer = setTimeout(() => { manualMode = false; }, 15000);
             scramble(14, 200);
