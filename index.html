@@ -827,25 +827,28 @@ async function solve(ms = 340) {
     setStatus('Solved! ✓');
 }
 
-// ── Auto scramble→solve loop ──────────────────────
-async function autoLoop() {
+async function startScrambleSolve() {
+    const cubeWrapper = document.getElementById("cubeWrapper");
+
+    cubeWrapper.style.opacity = 0;      // hide cube
+
+    await scramble(7, 0);              // scramble instantly (no visible animation)
+
+    cubeWrapper.style.opacity = 1;      // show cube
+
+    await solve(360);                   // play solve animation
+}
+
+// ── Solve once automatically ──────────────────────
+async function autoStart() {
+    startScrambleSolve(8, 0);
     await sleep(1200);
-    while (true) {
-        if (!manualMode) {
-            await scramble(14, 170);
-            await sleep(1800);
-        }
-        if (!manualMode) {
-            await solve(360);
-            await sleep(2800);
-        }
-        await sleep(400);
-    }
+    await solve(360);
 }
 
 // Build and start
 buildCube();
-autoLoop();
+autoStart();
 
 // Buttons
 document.getElementById('btnScramble').addEventListener('click', () => {
