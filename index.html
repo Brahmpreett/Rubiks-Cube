@@ -1797,7 +1797,7 @@
 
             cubeWrapper.style.opacity = 0;      // hide cube
 
-            await scramble(8, 0);              // scramble instantly (no visible animation)
+            await scramble(10, 0);              // scramble instantly (no visible animation)
 
             cubeWrapper.style.opacity = 1;      // show cube
 
@@ -1806,7 +1806,7 @@
 
         // ── Solve once automatically ──────────────────────
         async function autoStart() {
-            startScrambleSolve(8, 0);
+            startScrambleSolve(10, 0);
             await sleep(1200);
             await solve(360);
         }
