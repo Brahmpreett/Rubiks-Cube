@@ -4,6 +4,7 @@ A modern interactive developer portfolio inspired by the logic and elegance of a
 
 The website features a fully interactive **3D Rubik’s Cube**, smooth animations, dynamic UI elements, and a clean responsive layout to showcase skills and projects.
 
+Get for yourself now -> https://brahmpreet.gumroad.com/l/cubeportfolio
 ---
 
 ## ✨ Features
