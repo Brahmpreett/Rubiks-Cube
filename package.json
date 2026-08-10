@@ -1,0 +1,24 @@
+{
+  "name": "rubiks-cube-portfolio",
+  "version": "1.0.0",
+  "description": "A modern interactive developer portfolio inspired by the logic and elegance of a Rubik's Cube",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brahmpreett/Rubiks-Cube.git"
+  },
+  "keywords": [
+    "portfolio",
+    "rubiks-cube",
+    "3d",
+    "interactive"
+  ],
+  "author": "Brahmpreet Singh",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
